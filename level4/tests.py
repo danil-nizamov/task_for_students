@@ -120,7 +120,7 @@ class LevelTests(unittest.TestCase):
         self.assertTrue(self.manager.set_record(1112, "Alice", "+322"))
         self.assertTrue(self.manager.set_record(324, "Bob", "+228"))
         self.assertEquals(self.manager.call(1112), "CALLING Alice WITH +322")
-        self.assertEquals(self.manager.call_with_ts(1112, 16), "CALLING Alice WITH +123 AT 16")
+        self.assertEquals(self.manager.call_with_ts(1112, 16), "CALLING Alice WITH +322 AT 16")
         self.assertEquals(self.manager.call(1112), "CALLING Alice WITH +322")
         self.assertListEqual(self.manager.calls_history(1112), ["0(2)", "16"])
         self.assertEquals(self.manager.call(324), "CALLING Bob WITH +228")
