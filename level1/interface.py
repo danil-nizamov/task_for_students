@@ -4,6 +4,13 @@ from abc import ABC, abstractmethod
 class ContactsManagerInterface(ABC):
 
     @abstractmethod
+    def clear(self) -> None:
+        """
+        Данная команда очищает базу данных
+        """
+        pass
+
+    @abstractmethod
     def set_record(self, id: int, name: str, phone_number: str) -> bool:
         """
         Данная команда должна добавить в базу данных нового
@@ -34,3 +41,4 @@ class ContactsManagerInterface(ABC):
         нет, команда возвращает строку "NO SUCH USER".
         """
         pass
+        

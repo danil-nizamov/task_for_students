@@ -27,6 +27,7 @@ class LevelTests(unittest.TestCase):
         cls.manager = ContactsManagerImpl()
 
     def test1_1_allOperationsSimpleCase(self):
+        self.manager.clear()
         self.assertTrue(self.manager.set_record(1, "John", "+3581"))
         self.assertFalse(self.manager.set_record(1, "Jake", "+1123"))
         self.assertTrue(self.manager.set_record(12, "Jake", "+1123"))
@@ -40,6 +41,7 @@ class LevelTests(unittest.TestCase):
         self.assertEquals(self.manager.call(12), "CALLING Jake WITH +1123")
 
     def test1_2_nonExistentUsersCalls(self):
+        self.manager.clear()
         self.assertEquals(self.manager.call(1), "NO SUCH USER")
         self.assertEquals(self.manager.call(1), "NO SUCH USER")
         self.assertEquals(self.manager.call(2), "NO SUCH USER")
@@ -48,6 +50,7 @@ class LevelTests(unittest.TestCase):
         self.assertTrue(self.manager.set_record(1, "Bob", "+1234"))
 
     def test1_3_deletionAndRecreation(self):
+        self.manager.clear()
         self.assertTrue(self.manager.set_record(1, "Alice", "+123"))
         self.assertTrue(self.manager.set_record(2, "Bob", "+456"))
         self.assertTrue(self.manager.delete_record(1))
@@ -57,6 +60,7 @@ class LevelTests(unittest.TestCase):
         self.assertEquals(self.manager.call(1), "CALLING Alice WITH +123")
 
     def test_1_4_equalUsersWithDifferentIDs(self):
+        self.manager.clear()
         self.assertTrue(self.manager.set_record(1, "Alice", "+123"))
         self.assertTrue(self.manager.set_record(2, "Alice", "+123"))
         self.assertTrue(self.manager.set_record(228, "Alice", "+123"))
@@ -65,16 +69,19 @@ class LevelTests(unittest.TestCase):
         self.assertEquals(self.manager.call(228), "CALLING Alice WITH +123")
 
     def test_2_1_allOperationsSimpleCase(self):
+        self.manager.clear()
         self.__prepCallsForMostPopular()
         self.assertListEqual(self.manager.most_popular(3), ["Alice(3)", "Bob(2)", "John(1)"])
 
     def test_2_2_mostPopularEmptyList(self):
+        self.manager.clear()
         self.__assertListEmpty(self.manager.most_popular(3))
         self.assertTrue(self.manager.set_record(1, "Ivan", "+322"))
         self.__assertListEmpty(self.manager.most_popular(3))
         self.__assertListEmpty(self.manager.most_popular(5))
 
     def test_2_3_mostPopularCut(self):
+        self.manager.clear()
         self.__prepCallsForMostPopular()
         self.assertListEqual(self.manager.most_popular(3), ["Alice(3)", "Bob(2)", "John(1)"])
         self.assertListEqual(self.manager.most_popular(2), ["Alice(3)", "Bob(2)"])
@@ -82,6 +89,7 @@ class LevelTests(unittest.TestCase):
         self.assertListEqual(self.manager.most_popular(10), ["Alice(3)", "Bob(2)", "John(1)"])
 
     def test_2_3_mostPopularTies(self):
+        self.manager.clear()
         self.__prepCallsForMostPopular()
         self.assertListEqual(self.manager.most_popular(3), ["Alice(3)", "Bob(2)", "John(1)"])
         self.assertListEqual(self.manager.most_popular(2), ["Alice(3)", "Bob(2)"])
@@ -93,3 +101,5 @@ class LevelTests(unittest.TestCase):
         self.assertListEqual(self.manager.most_popular(3), ["Alice(4)", "Bob(4)", "John(1)"])
 
         
+if __name__ == '__main__':
+    unittest.main()
