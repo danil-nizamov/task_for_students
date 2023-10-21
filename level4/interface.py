@@ -4,6 +4,13 @@ from abc import ABC, abstractmethod
 class ContactsManagerInterface(ABC):
 
     @abstractmethod
+    def clear(self) -> None:
+        """
+        Данная команда очищает базу данных
+        """
+        pass
+
+    @abstractmethod
     def set_record(self, id: int, name: str, phone_number: str) -> bool:
         """
         Данная команда должна добавить в базу данных нового
@@ -44,6 +51,7 @@ class ContactsManagerInterface(ABC):
         Пользователи в списке должны быть отсортированы
         по количеству звонков в убывающем порядке.
         В случае ничьи – по алфавиту в возрастающем порядке.
+        В случае если пользователю ни разу не звонили - игнорируйте его.
         Команда возвращает список строк в данном формате:
         [<Name>(<Calls>), <Name2>(<Calls2>), ..., <NameN>(<CallsN>)]
         """
@@ -67,6 +75,7 @@ class ContactsManagerInterface(ABC):
         которые были между ts_start и ts_end. Звонок, совершенный во время ts,
         считается попавшим в промежуток [ts_start, ts_end], если
         ts_start <= ts <= ts_end.
+        В случае если пользователю ни разу не звонили за промежуток времени - игнорируйте его.
         """
         pass
 
